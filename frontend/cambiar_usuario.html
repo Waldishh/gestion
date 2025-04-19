@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cambiar Usuario y Contraseña</title>
+</head>
+
+<body>
+    <h1>Cambiar Usuario y Contraseña</h1>
+    <form action="../backend/cambiar_datos.php" method="POST">
+        <label for="nuevo_usuario">Nuevo Nombre de Usuario:</label>
+        <input type="text" id="nuevo_usuario" name="nuevo_usuario" required><br><br>
+
+        <label for="nueva_clave">Nueva Contraseña:</label>
+        <input type="password" id="nueva_clave" name="nueva_clave" required><br><br>
+
+        <input type="submit" value="Cambiar Datos">
+    </form>
+</body>
+
+</html>
