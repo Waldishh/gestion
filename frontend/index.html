@@ -1,23 +1,37 @@
+
+
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <h1>Formulario de Login</h1>
-    <form action="../backend/login.php" method="POST">
-        <label for="usuario">Usuario:</label>
-        <input type="text" id="usuario" name="nombre" required>
-        <br><br>
-        <label for="clave">Contraseña:</label>
-        <input type="password" id="clave" name="clave" required>
-        <br><br>
-        <input type="submit" value="Iniciar sesión">
-    </form>
+
+    <div class="login-container">
+        <form action="../backend/login.php" method="POST" id="login-form">
+            <h1>Iniciar sesión</h1>
+
+            <!-- Mensaje de error -->
+            <div id="error-message" class="error-message"></div>
+
+            <!-- Campos de texto -->
+            <input type="text" id="usuario" name="nombre" placeholder="Usuario" required>
+            <input type="password" id="clave" name="clave" placeholder="Contraseña" required>
+
+            <!-- Botón para enviar -->
+            <input type="submit" value="Iniciar sesión">
+
+            <!-- Carga animada -->
+            <div class="loader" id="loader"></div>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 
 </html>

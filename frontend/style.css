@@ -1,30 +1,116 @@
-body {
-    font-family: Arial, sans-serif;
+
+
+/* Reseteo de márgenes y padding para asegurar consistencia en todos los navegadores */
+* {
     margin: 0;
     padding: 0;
-    background-color: #f0f0f0;
+    box-sizing: border-box;
+}
+
+/* Fondo general */
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(to right, #4facfe, #00f2fe);
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
 }
 
-form {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+/* Contenedor principal del formulario */
+.login-container {
+    background: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
 }
 
+/* Estilo del título */
 h1 {
     text-align: center;
     color: #333;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
 }
 
-input {
+/* Estilo de los inputs y su espaciado */
+input[type="text"],
+input[type="password"] {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     margin: 10px 0;
-    border: 1px solid #ddd;
+    border: 1px solid #ccc;
     border-radius: 5px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+/* Efecto de enfoque en los inputs */
+input[type="text"]:focus,
+input[type="password"]:focus {
+    border-color: #4facfe;
+    outline: none;
+}
+
+/* Estilo del botón de submit */
+input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #4facfe;
+    color: white;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Efecto hover para el botón */
+input[type="submit"]:hover {
+    background-color: #00f2fe;
+}
+
+/* Carga animada */
+.loader {
+    display: none;
+    width: 40px;
+    height: 40px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #4facfe;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+}
+
+/* Animación de carga */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Mensajes de error */
+.error-message {
+    color: red;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+/* Responsive para pantallas pequeñas */
+@media (max-width: 480px) {
+    .login-container {
+        width: 80%;
+        padding: 30px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
 }

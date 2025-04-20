@@ -1,18 +1,51 @@
 
 
 
-<!-- frontend/panel.html -->
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="UTF-8">
-    <title>Panel de Administración</title>
+    <title>Panel de Control</title>
+    <!-- Ahora enlazamos con el archivo CSS en la carpeta "css" -->
+    <link rel="stylesheet" href="panel.css">
 </head>
 
 <body>
-    <h1>Bienvenido al Panel</h1>
-    <p>Has iniciado sesión correctamente.</p>
+    <header>
+        <h1>Bienvenido al Panel de Control</h1>
+    </header>
+
+    <!-- Barra de navegación -->
+    <nav>
+        <a href="#">Inicio</a>
+        <a href="#">Productos</a>
+        <a href="#">Usuarios</a>
+        <a href="#">Ventas</a>
+        <a href="#">Informes</a>
+        <a href="#">Configuraciones</a>
+    </nav>
+
+    <div class="container">
+        <!-- Barra Lateral -->
+        <div class="sidebar">
+            <h3>Menú de usuario</h3>
+            <p><strong>Usuario:</strong>
+                <?php echo $_SESSION['usuario']; ?>
+            </p>
+            <p><a href="#" class="logout">Cerrar sesión</a></p>
+        </div>
+
+        <!-- Contenido Principal -->
+        <div class="content">
+            <div class="welcome-message">
+                <p>Hola,
+                    <?php echo $_SESSION['usuario']; ?>. ¡Bienvenido!
+                </p>
+            </div>
+            <!-- Aquí puedes agregar más contenido como tablas, gráficos, etc. -->
+        </div>
+    </div>
 </body>
 
 </html>

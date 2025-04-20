@@ -1,40 +1,54 @@
 <?php
-session_start(); // Iniciar sesión antes de cualquier salida
+session_start();
 
-$conexion = new mysqli("localhost", "root", "", "sistemas_de_gestion_de_ventas");
+// Mostrar errores para depuración
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-if ($conexion->connect_error) {
-    die("Error de conexión: " . $conexion->connect_error);
-}
+// Verificamos si llegaron los datos del formulario
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST["nombre"]) && isset($_POST["clave"])) {
+        $nombre = trim($_POST["nombre"]);
+        $clave = trim($_POST["clave"]);
 
-// Verifica si se recibieron los datos del formulario
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nombre'], $_POST['clave'])) {
+        echo "Nombre recibido: $nombre<br>";
+        echo "Contraseña recibida: $clave<br>";
 
-    // Imprimir los datos para depuración
-    echo "Nombre recibido: " . $_POST['nombre'] . "<br>";
-    echo "Contraseña recibida: " . $_POST['clave'] . "<br>";
+        // Conexión a la base de datos
+        $conexion = new mysqli("localhost", "root", "", "sistemas_de_gestion_de_ventas");
 
-    $nombre = $_POST['nombre'];
-    $clave = hash('sha256', $_POST['clave']); // Cifra la contraseña
+        if ($conexion->connect_error) {
+            die("Error de conexión: " . $conexion->connect_error);
+        }
 
-    $sql = "SELECT * FROM clientes WHERE nombre = ? AND clave = ?";
-    $stmt = $conexion->prepare($sql);
-    $stmt->bind_param("ss", $nombre, $clave);
-    $stmt->execute();
-    $resultado = $stmt->get_result();
+        // Buscar el usuario en la base de datos
+        $sql = "SELECT clave FROM clientes WHERE nombre = ?";
+        $stmt = $conexion->prepare($sql);
+        $stmt->bind_param("s", $nombre);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
 
-    // Verifica si el usuario y la contraseña coinciden
-    if ($resultado->num_rows === 1) {
-        $_SESSION['usuario'] = $nombre; // Guarda en sesión el nombre de usuario
-        header("Location: ../frontend/panel.html");
-        exit();
+        if ($resultado->num_rows === 1) {
+            $fila = $resultado->fetch_assoc();
+            $clave_hash = $fila["clave"];
+
+            // Verificar la contraseña ingresada contra el hash
+            if (password_verify($clave, $clave_hash)) {
+                $_SESSION["usuario"] = $nombre;
+                echo "✅ Inicio de sesión exitoso. Redirigiendo...";
+                header("Location: ../frontend/panel.html"); // Ajusta la ruta si es necesario
+                exit;
+            } else {
+                echo "⚠️ Usuario o contraseña incorrectos.";
+            }
+        } else {
+            echo "⚠️ Usuario o contraseña incorrectos.";
+        }
+
+        $stmt->close();
+        $conexion->close();
     } else {
-        echo "⚠️ Usuario o contraseña incorrectos."; // Si no se encuentra
+        echo "❌ Faltan campos en el formulario.";
     }
-
-    $stmt->close();
-} else {
-    echo "⛔ Datos incompletos en el formulario.";
 }
-
-$conexion->close();
+?>
