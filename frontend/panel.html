@@ -1,13 +1,9 @@
-
-
-
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <title>Panel de Control</title>
-    <!-- Ahora enlazamos con el archivo CSS en la carpeta "css" -->
     <link rel="stylesheet" href="panel.css">
 </head>
 
@@ -18,10 +14,12 @@
 
     <!-- Barra de navegación -->
     <nav>
-        <a href="#">Inicio</a>
+        <a href="#" onclick="cargarContenido('inicio/inicio.html')">Inicio</a>
+
         <a href="#">Productos</a>
         <a href="#">Usuarios</a>
-        <a href="#">Ventas</a>
+    <a href="#" onclick="cargarContenido('venta/venta.html')">Ventas</a>
+
         <a href="#">Informes</a>
         <a href="#">Configuraciones</a>
     </nav>
@@ -37,15 +35,17 @@
         </div>
 
         <!-- Contenido Principal -->
-        <div class="content">
+        <div class="content" id="contenido">
             <div class="welcome-message">
                 <p>Hola,
                     <?php echo $_SESSION['usuario']; ?>. ¡Bienvenido!
                 </p>
             </div>
-            <!-- Aquí puedes agregar más contenido como tablas, gráficos, etc. -->
         </div>
     </div>
+
+    <!-- Script para cargar dinámicamente contenido -->
+    
 </body>
 
 </html>
