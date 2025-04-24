@@ -1,47 +1,105 @@
+
+
+
+/* Estilos para el body */
 body {
     font-family: Arial, sans-serif;
     background-color: #f3f3f3;
-    padding: 20px;
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
 }
 
-h1 {
+/* Contenedor centralizado */
+.container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
+}
+
+h2 {
     color: #333;
+    text-align: center;
 }
 
-form {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    width: 300px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+/* Estilos para los grupos de formulario */
+.form-group {
+    margin-bottom: 20px;
 }
 
+/* Estilo para las etiquetas */
 label {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 8px;
     display: block;
-    margin-top: 10px;
 }
 
+/* Estilos para los campos de formulario */
 input,
-select,
+select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus,
+select:focus {
+    border-color: #007BFF;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Estilos para el botón */
 button {
     width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-}
-
-button {
-    margin-top: 15px;
-    background-color: #4CAF50;
+    padding: 12px;
+    background-color: #007BFF;
     color: white;
+    font-size: 18px;
     border: none;
+    border-radius: 8px;
     cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #0056b3;
+    transform: scale(1.05);
 }
 
+button:active {
+    background-color: #00408d;
+}
+
+/* Estilo para el mensaje */
 #mensaje {
-    margin-top: 15px;
+    margin-top: 20px;
     font-weight: bold;
+    font-size: 16px;
+    color: #333;
+    text-align: center;
+}
+
+/* Responsive Design para pantallas pequeñas */
+@media (max-width: 480px) {
+    .container {
+        padding: 20px;
+        width: 100%;
+    }
+
+    button {
+        font-size: 16px;
+    }
 }

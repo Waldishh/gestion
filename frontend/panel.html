@@ -1,3 +1,6 @@
+
+
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -5,6 +8,7 @@
     <meta charset="UTF-8">
     <title>Panel de Control</title>
     <link rel="stylesheet" href="panel.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
 <body>
@@ -12,29 +16,38 @@
         <h1>Bienvenido al Panel de Control</h1>
     </header>
 
-    <!-- Barra de navegación -->
+    <!-- Barra de navegación centralizada -->
     <nav>
-        <a href="#" onclick="cargarContenido('inicio/inicio.html')">Inicio</a>
-
-        <a href="#">Productos</a>
-        <a href="#">Usuarios</a>
-    <a href="#" onclick="cargarContenido('venta/venta.html')">Ventas</a>
-
-        <a href="#">Informes</a>
-        <a href="#">Configuraciones</a>
+        <div class="nav-buttons">
+            <a href="#" class="nav-button" onclick="cargarContenido('inicio/inicio.html')">
+                <i class="fas fa-home"></i> Inicio
+            </a>
+            <a href="#" class="nav-button">
+                <i class="fas fa-cogs"></i> Productos
+            </a>
+            <a href="#" class="nav-button">
+                <i class="fas fa-users"></i> Usuarios
+            </a>
+            <a href="#" class="nav-button" onclick="cargarContenido('venta/venta.html')">
+                <i class="fas fa-cash-register"></i> Ventas
+            </a>
+            <a href="#" class="nav-button">
+                <i class="fas fa-chart-line"></i> Informes
+            </a>
+            <a href="#" class="nav-button">
+                <i class="fas fa-cogs"></i> Configuraciones
+            </a>
+        </div>
     </nav>
 
-    <div class="container">
-        <!-- Barra Lateral -->
-        <div class="sidebar">
-            <h3>Menú de usuario</h3>
-            <p><strong>Usuario:</strong>
-                <?php echo $_SESSION['usuario']; ?>
-            </p>
-            <p><a href="#" class="logout">Cerrar sesión</a></p>
-        </div>
+    <!-- Botones de navegación -->
+    <div class="nav-history-buttons" style="text-align: center; margin-top: 10px;">
+        <button onclick="navegar(-1)">← Atrás</button>
+        <button onclick="navegar(1)">Siguiente →</button>
+    </div>
 
-        <!-- Contenido Principal -->
+    <!-- Contenedor Principal -->
+    <div class="container">
         <div class="content" id="contenido">
             <div class="welcome-message">
                 <p>Hola,
@@ -45,7 +58,7 @@
     </div>
 
     <!-- Script para cargar dinámicamente contenido -->
-    
+    <script src="panel.js"></script>
 </body>
 
 </html>

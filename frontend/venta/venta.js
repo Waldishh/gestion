@@ -1,76 +1,35 @@
-// frontend/venta/venta.js
+// Cargar productos desde el backend
+fetch('../backend/ventas.php')  // Subir dos niveles desde venta/ hasta llegar a backend/
+  .then(response => response.json())
+  .then(data => {
+    console.log(data); // Verifica si llegan los productos
 
-// venta.js
-// Función para actualizar el precio
-// Función para actualizar el precio
-function actualizarPrecio() {
-    const select = document.getElementById('producto'); // Obtenemos el selector
-    const precio = select.options[select.selectedIndex].dataset.precio; // Obtenemos el precio de la opción seleccionada
+    const select = document.getElementById('tipo-salteña');
+    select.innerHTML = '<option value="">Seleccione una salteña</option>'; // Reinicia select
 
-    if (precio) {
-        document.getElementById('precio').value = precio; // Llenamos el campo de precio con el valor correspondiente
-        calcularTotal(); // Actualizamos el total automáticamente
-    }
-}
+    data.forEach(producto => {
+      const option = document.createElement('option');
+      option.value = producto.id_producto;
+      option.textContent = `${producto.nombre_producto} - Bs ${producto.precio}`;
+      option.dataset.precio = producto.precio;
+      select.appendChild(option);
+    });
+  })
+  .catch(error => console.error('Error al cargar los productos:', error));
 
-// Función para calcular el total
-function calcularTotal() {
-    const precio = parseFloat(document.getElementById('precio').value) || 0; // Obtenemos el precio
-    const cantidad = parseInt(document.getElementById('cantidad').value) || 0; // Obtenemos la cantidad
-    const total = precio * cantidad; // Calculamos el total
-
-    document.getElementById('total').value = total.toFixed(2); // Mostramos el total en el campo correspondiente
-}
-
-// Cargar los productos desde la base de datos
-document.addEventListener('DOMContentLoaded', function() {
-    fetch('../backend/cargar_productos.php')
-        .then(res => res.json())
-        .then(productos => {
-            const select = document.getElementById('producto');
-            productos.forEach(producto => {
-                const option = document.createElement('option');
-                option.value = producto.id_producto;
-                option.dataset.precio = producto.precio;
-                option.textContent = `${producto.nombre} - ${producto.precio} Bs`;
-                select.appendChild(option);
-            });
-        })
-        .catch(error => console.log('Error al cargar productos:', error));
+// Mostrar precio y calcular total
+document.getElementById('tipo-salteña').addEventListener('change', function () {
+  const selected = this.options[this.selectedIndex];
+  const precio = selected.dataset.precio || 0;
+  document.getElementById('precio').value = precio;
+  calcularTotal();
 });
-// Función para actualizar el precio
-function actualizarPrecio() {
-    const select = document.getElementById('producto'); // Obtenemos el selector
-    const precio = select.options[select.selectedIndex].dataset.precio; // Obtenemos el precio de la opción seleccionada
 
-    if (precio) {
-        document.getElementById('precio').value = precio; // Llenamos el campo de precio con el valor correspondiente
-        calcularTotal(); // Actualizamos el total automáticamente
-    }
-}
+document.getElementById('cantidad').addEventListener('input', calcularTotal);
 
-// Función para calcular el total
 function calcularTotal() {
-    const precio = parseFloat(document.getElementById('precio').value) || 0; // Obtenemos el precio
-    const cantidad = parseInt(document.getElementById('cantidad').value) || 0; // Obtenemos la cantidad
-    const total = precio * cantidad; // Calculamos el total
-
-    document.getElementById('total').value = total.toFixed(2); // Mostramos el total en el campo correspondiente
+  const precio = parseFloat(document.getElementById('precio').value) || 0;
+  const cantidad = parseInt(document.getElementById('cantidad').value) || 1;
+  const total = precio * cantidad;
+  document.getElementById('total').value = total.toFixed(2);
 }
-
-// Cargar los productos desde la base de datos
-document.addEventListener('DOMContentLoaded', function() {
-    fetch('../backend/cargar_productos.php')
-        .then(res => res.json())
-        .then(productos => {
-            const select = document.getElementById('producto');
-            productos.forEach(producto => {
-                const option = document.createElement('option');
-                option.value = producto.id_producto;
-                option.dataset.precio = producto.precio;
-                option.textContent = `${producto.nombre} - ${producto.precio} Bs`;
-                select.appendChild(option);
-            });
-        })
-        .catch(error => console.log('Error al cargar productos:', error));
-});

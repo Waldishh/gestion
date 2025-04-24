@@ -1,36 +1,49 @@
+
+
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="UTF-8">
-    <title>Registro de Venta</title>
+    <title>Formulario de Venta</title>
     <link rel="stylesheet" href="venta/venta.css">
 </head>
 
 <body>
-    <h2>Registrar Venta de Salteñas</h2>
+    <div class="container">
+        <h2>Registro de Venta</h2>
 
-    <form id="formVenta" method="POST" action="../backend/registrar_venta.php">
-        <label for="producto">Tipo de Salteña:</label>
-        <select id="producto" name="id_producto" onchange="actualizarPrecio()" required>
-            <option value="" disabled selected>Selecciona una opción</option>
-            <!-- Estas opciones deben ser dinámicas, las cargamos desde la base de datos -->
-        </select>
+        <form action="#" id="venta-form">
+            <div class="form-group">
+                <label for="tipo-salteña">Tipo de Salteña:</label>
+                <select id="tipo-salteña">
+                    <option value="">Seleccione una salteña</option>
+                    <option value="salteña1">Salteña 1</option>
+                    <option value="salteña2">Salteña 2</option>
+                    <option value="salteña3">Salteña 3</option>
+                </select>
+            </div>
 
-        <label for="precio">Precio Unitario (Bs):</label>
-        <input type="text" id="precio" name="precio_unitario" readonly>
+            <div class="form-group">
+                <label for="precio">Precio (Bs):</label>
+                <input type="text" id="precio" readonly placeholder="Precio" value="0.00">
+            </div>
 
-        <label for="cantidad">Cantidad:</label>
-        <input type="number" id="cantidad" name="cantidad" min="1" value="1" oninput="calcularTotal()" required>
+            <div class="form-group">
+                <label for="cantidad">Cantidad:</label>
+                <input type="number" id="cantidad" min="1" placeholder="Cantidad" value="1">
+            </div>
 
-        <label for="total">Total (Bs):</label>
-        <input type="text" id="total" name="total" readonly>
+            <div class="form-group">
+                <label for="total">Total (Bs):</label>
+                <input type="text" id="total" readonly placeholder="Total" value="0.00">
+            </div>
 
-        <input type="hidden" name="id_cliente" value="1"> <!-- Ajusta según el cliente -->
+            <button type="submit">Realizar Venta</button>
+        </form>
 
-        <br><br>
-        <button type="submit">Registrar Venta</button>
-    </form>
+        <div id="mensaje"></div>
+    </div>
 
     <script src="venta/venta.js"></script>
 </body>
