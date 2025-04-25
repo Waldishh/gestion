@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// Mostrar errores para depuración
+// Mostrar errores para depuración (puedes desactivar en producción)
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -10,9 +10,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["nombre"]) && isset($_POST["clave"])) {
         $nombre = trim($_POST["nombre"]);
         $clave = trim($_POST["clave"]);
-
-        echo "Nombre recibido: $nombre<br>";
-        echo "Contraseña recibida: $clave<br>";
 
         // Conexión a la base de datos
         $conexion = new mysqli("localhost", "root", "", "sistemas_de_gestion_de_ventas");
@@ -32,23 +29,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $fila = $resultado->fetch_assoc();
             $clave_hash = $fila["clave"];
 
-            // Verificar la contraseña ingresada contra el hash
+            // Verificar la contraseña
             if (password_verify($clave, $clave_hash)) {
                 $_SESSION["usuario"] = $nombre;
-                echo "✅ Inicio de sesión exitoso. Redirigiendo...";
-                header("Location: ../frontend/panel.html"); // Ajusta la ruta si es necesario
+                header("Location: ../frontend/panel/panel.html");
                 exit;
-            } else {
-                echo "⚠️ Usuario o contraseña incorrectos.";
             }
-        } else {
-            echo "⚠️ Usuario o contraseña incorrectos.";
         }
+
+        // Si llega aquí, es porque falló la autenticación
+        header("Location: ../index.html?error=1");
+        exit;
 
         $stmt->close();
         $conexion->close();
     } else {
-        echo "❌ Faltan campos en el formulario.";
+        header("Location: ../index.html?error=2");
+        exit;
     }
 }
-?>
